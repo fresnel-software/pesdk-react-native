@@ -139,8 +139,16 @@ const struct RN_IMGLY_Constants RN_IMGLY = {
     self.reject = reject;
     self.mediaEditViewController = mediaEditViewController;
 
-    UIViewController *currentViewController = RCTPresentedViewController();
-    [currentViewController presentViewController:self.mediaEditViewController animated:YES completion:NULL];
+//    UIViewController *currentViewController = RCTPresentedViewController();
+//    [currentViewController presentViewController:self.mediaEditViewController animated:YES completion:NULL];
+      
+      // Added navigation controller in RNImglyKit.m to be able to present the editor with the navigation bar on top
+      UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mediaEditViewController];
+      navigationController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        navigationController.navigationBar.backgroundColor = [UIColor colorWithRed: 0.27 green: 0.27 blue: 0.27 alpha: 1.00];
+
+      UIViewController *currentViewController = RCTPresentedViewController();
+      [currentViewController presentViewController:navigationController animated:YES completion:NULL];
   });
 }
 
